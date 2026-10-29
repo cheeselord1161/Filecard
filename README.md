@@ -30,16 +30,24 @@ On Windows with MinGW, add the dialog library's required Windows libraries:
 ```sh
 g++ -std=c++17 -Wall -Wextra -pedantic main.cpp \
   third_party/tinyfiledialogs/tinyfiledialogs.cpp \
-  -lcomdlg32 -lole32 -o filecard.exe
+  -lcomdlg32 -lole32 -lgdi32 -static \
+  -o filecard.exe
 ```
 
 On Linux, the folder chooser uses an available desktop dialog helper such as Zenity or KDialog. Install one if the chooser cannot open.
 
-The included `Filecard.cbp` project is for Code::Blocks. Open it there and build the Debug or Release target. The project sets the C++17 compiler option and includes the dialog source. On Windows/MinGW, add `-lcomdlg32 -lole32` to the target's linker options.
+The included `Filecard.cbp` project is for Code::Blocks. Open it there and build the Debug or Release target. The project sets the C++17 compiler option and includes the dialog source. On Windows/MinGW, add `-lcomdlg32 -lole32 -lgdi32 -static` to the target's linker options to link the MinGW runtime into the executable.
 
 ## Use
 
-Run the program and select the directory in the folder dialog. If you cancel the dialog, Filecard offers a text-path fallback. At the report destination prompt, press Enter to save `filecard-report.html` inside the selected directory. You may enter a filename, a full file path, or a directory; if you enter a directory, Filecard places `filecard-report.html` inside it. Relative paths are resolved inside the selected project directory. Filecard prints the exact destination before asking whether to replace an existing report.
+Filecard is a console program. On Linux, launch the AppImage from a terminal rather than double-clicking it so its text prompts are visible and can receive your input:
+
+```sh
+chmod +x Filecard-x86_64.AppImage
+./Filecard-x86_64.AppImage
+```
+
+Run the program and select the directory in the folder dialog. If you cancel the dialog, Filecard offers a text-path fallback. At the report destination prompt, press Enter to save `filecard-report.html` inside the selected directory. You may enter a filename, a full file path, or a directory; if you enter a directory, Filecard places `filecard-report.html` inside it. Relative paths are resolved inside the selected project directory. Filecard prints the exact destination before asking whether to replace an existing report; type `y` to confirm. Without terminal input, the overwrite prompt cannot be answered and the report is left unchanged.
 
 Paths containing spaces are accepted because Filecard reads the full input line.
 
