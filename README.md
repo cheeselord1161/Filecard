@@ -2,6 +2,8 @@
 
 Filecard creates a quick, local overview of a project directory and writes it as an HTML report. It opens a native folder chooser on launch; if that dialog is canceled, you can type a path instead.
 
+<img width="755" height="812" alt="demo" src="https://github.com/user-attachments/assets/3339eaed-cf86-4387-a560-8979effe0950" />
+
 ## What it reports
 
 - Regular file and subfolder counts, including nested folders
